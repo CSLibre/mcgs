@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cambridge Digital Literacy 0082 — Curriculum Comparison</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f3ee;
+    --surface: #ffffff;
+    --surface2: #f0ede6;
+    --border: #ddd9d0;
+    --text: #1a1816;
+    --muted: #6b665c;
+    --hint: #9e9990;
+
+    --c19: #2d5986;
+    --c19-light: #e8f0f8;
+    --c19-mid: #b8d0ea;
+    --c26: #1a6b4a;
+    --c26-light: #e6f4ed;
+    --c26-mid: #a8d9c0;
+
+    --tc: #7c3d8c;
+    --tc-light: #f3eaf6;
+    --sw: #c05c1a;
+    --sw-light: #fdf0e6;
+    --dw: #1a5a7c;
+    --dw-light: #e6f2f8;
+
+    --new: #b5361d;
+    --new-light: #fdecea;
+    --updated: #856b00;
+    --updated-light: #fdf6e3;
+    --retained: #2d6b3a;
+    --retained-light: #eaf4ec;
+    --removed: #666;
+    --removed-light: #f5f5f5;
+
+    --radius: 10px;
+    --radius-sm: 6px;
+    --shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.6; }
+
+  /* ── HEADER ── */
+  .header {
+    background: var(--text);
+    color: #f5f3ee;
+    padding: 28px 32px 24px;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .header-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; }
+  .header h1 { font-family: 'DM Serif Display', serif; font-size: 22px; font-weight: 400; line-height: 1.2; }
+  .header h1 span { color: #8fbc9e; font-style: italic; }
+  .version-pills { display: flex; gap: 8px; flex-shrink: 0; align-items: center; }
+  .pill { padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .pill-19 { background: var(--c19); color: #fff; }
+  .pill-26 { background: var(--c26); color: #fff; }
+
+  .nav-tabs { display: flex; gap: 4px; margin-top: 16px; border-bottom: 1px solid rgba(255,255,255,0.15); }
+  .nav-tab { padding: 8px 16px; font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.55); cursor: pointer; border-bottom: 2px solid transparent; transition: all .2s; border: none; background: none; font-family: inherit; }
+  .nav-tab:hover { color: rgba(255,255,255,0.85); }
+  .nav-tab.active { color: #fff; border-bottom-color: #8fbc9e; }
+
+  /* ── CONTENT WRAPPER ── */
+  .content { max-width: 1100px; margin: 0 auto; padding: 28px 20px 60px; }
+
+  /* ── OVERVIEW PANEL ── */
+  .overview-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 28px; }
+  .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow); }
+  .stat-card h3 { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: 14px; }
+  .stat-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--border); }
+  .stat-row:last-child { border-bottom: none; }
+  .stat-label { font-size: 13px; color: var(--muted); }
+  .stat-vals { display: flex; gap: 8px; align-items: center; }
+  .stat-val { font-weight: 600; font-size: 14px; }
+  .stat-val.v19 { color: var(--c19); }
+  .stat-val.v26 { color: var(--c26); }
+  .stat-arrow { color: var(--hint); font-size: 11px; }
+
+  .big-stat { text-align: center; padding: 8px 0 4px; }
+  .big-stat .num { font-family: 'DM Serif Display', serif; font-size: 48px; line-height: 1; }
+  .big-stat .num.v19 { color: var(--c19); }
+  .big-stat .num.v26 { color: var(--c26); }
+  .big-stat .lbl { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+  .bar-compare { margin-top: 10px; }
+  .bar-row { margin-bottom: 10px; }
+  .bar-row-label { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 3px; }
+  .bar-row-label span:first-child { color: var(--muted); font-weight: 500; }
+  .bar-track { height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden; position: relative; }
+  .bar-fill { height: 100%; border-radius: 3px; }
+
+  .changes-legend { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+  .legend-item { display: flex; align-items: center; gap: 5px; font-size: 12px; color: var(--muted); }
+  .legend-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+
+  /* ── KEY THEMES SECTION ── */
+  .themes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; margin-bottom: 28px; }
+  .theme-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; }
+  .theme-card h4 { font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+  .theme-card p { font-size: 12px; color: var(--muted); line-height: 1.55; }
+  .theme-icon { font-size: 20px; margin-bottom: 8px; }
+
+  /* ── STRAND FILTER ── */
+  .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; align-items: center; }
+  .filter-btn { padding: 5px 14px; border-radius: 20px; font-size: 12px; font-weight: 500; cursor: pointer; border: 1px solid var(--border); background: var(--surface); color: var(--muted); transition: all .15s; font-family: inherit; }
+  .filter-btn:hover { border-color: var(--text); color: var(--text); }
+  .filter-btn.active { color: #fff; border-color: transparent; }
+  .filter-btn.tc.active { background: var(--tc); }
+  .filter-btn.sw.active { background: var(--sw); }
+  .filter-btn.dw.active { background: var(--dw); }
+  .filter-btn.all.active { background: var(--text); }
+
+  .stage-selector { display: flex; gap: 4px; margin-left: auto; }
+  .stage-btn { padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 500; cursor: pointer; border: 1px solid var(--border); background: var(--surface); color: var(--muted); transition: all .15s; font-family: inherit; }
+  .stage-btn.active { background: var(--text); color: #fff; border-color: var(--text); }
+
+  /* ── OBJECTIVE ROWS ── */
+  .stage-section { margin-bottom: 32px; }
+  .stage-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .stage-badge { background: var(--text); color: #fff; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 12px; }
+
+  .strand-block { margin-bottom: 16px; }
+  .strand-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; padding: 6px 12px; border-radius: 6px 6px 0 0; display: inline-block; margin-bottom: 0; }
+  .strand-label.tc { background: var(--tc); color: #fff; }
+  .strand-label.sw { background: var(--sw); color: #fff; }
+  .strand-label.dw { background: var(--dw); color: #fff; }
+
+  .obj-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--border); border-radius: 0 var(--radius-sm) var(--radius-sm) var(--radius-sm); overflow: hidden; }
+  .obj-col-header { padding: 8px 14px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; }
+  .obj-col-header.v19 { background: var(--c19-light); color: var(--c19); border-bottom: 1px solid var(--c19-mid); }
+  .obj-col-header.v26 { background: var(--c26-light); color: var(--c26); border-bottom: 1px solid var(--c26-mid); border-left: 1px solid var(--border); }
+
+  .obj-col { }
+  .obj-col.right { border-left: 1px solid var(--border); }
+
+  .obj-item {
+    padding: 9px 14px;
+    font-size: 12.5px;
+    line-height: 1.5;
+    border-bottom: 1px solid var(--border);
+    transition: background .15s;
+    position: relative;
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  .obj-item:last-child { border-bottom: none; }
+  .obj-item:hover { background: rgba(0,0,0,0.025); }
+
+  .obj-code { font-family: 'DM Mono', monospace; font-size: 10.5px; color: var(--hint); flex-shrink: 0; margin-top: 1px; font-weight: 500; }
+  .obj-text { flex: 1; }
+
+  .tag { display: inline-block; font-size: 10px; font-weight: 600; padding: 1px 6px; border-radius: 10px; margin-left: 5px; vertical-align: middle; flex-shrink: 0; align-self: flex-start; margin-top: 2px; white-space: nowrap; }
+  .tag-new { background: var(--new-light); color: var(--new); border: 1px solid #f5c4be; }
+  .tag-updated { background: var(--updated-light); color: var(--updated); border: 1px solid #e8d898; }
+  .tag-retained { background: var(--retained-light); color: var(--retained); border: 1px solid #b6d9be; }
+  .tag-removed { background: var(--removed-light); color: var(--removed); border: 1px solid #ddd; text-decoration: line-through; }
+
+  .obj-item.new-obj { background: var(--new-light); }
+  .obj-item.updated-obj { background: var(--updated-light); }
+  .obj-item.retained-obj { background: var(--retained-light); }
+  .obj-item.removed-obj { background: var(--removed-light); opacity: .7; }
+
+  .empty-col { color: var(--hint); font-size: 12px; padding: 12px 14px; font-style: italic; }
+
+  /* ── SEARCH ── */
+  .search-wrap { position: relative; flex: 1; max-width: 320px; }
+  .search-wrap input { width: 100%; padding: 7px 14px 7px 34px; border: 1px solid var(--border); border-radius: 20px; font-size: 13px; background: var(--surface); font-family: inherit; color: var(--text); outline: none; }
+  .search-wrap input:focus { border-color: var(--c26); }
+  .search-icon { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); color: var(--hint); font-size: 14px; }
+
+  /* ── REMOVED ONLY toggle ── */
+  .view-toggle { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); cursor: pointer; }
+  .view-toggle input { cursor: pointer; accent-color: var(--c26); }
+
+  /* ── HIDDEN ── */
+  .hidden { display: none !important; }
+
+  /* ── SECTION PANELS ── */
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* ── SECTION DIVIDER ── */
+  .section-title { font-family: 'DM Serif Display', serif; font-size: 20px; font-weight: 400; margin-bottom: 6px; color: var(--text); }
+  .section-sub { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+
+  @media (max-width: 640px) {
+    .obj-grid { grid-template-columns: 1fr; }
+    .obj-col.right { border-left: none; border-top: 2px solid var(--border); }
+    .header { padding: 20px 16px 16px; }
+    .content { padding: 20px 12px 40px; }
+    .stage-selector { margin-left: 0; }
+    .filters { gap: 6px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <div>
+      <h1>Cambridge Digital Literacy <span>0082</span><br>Curriculum Comparison</h1>
+    </div>
+    <div class="version-pills">
+      <span class="pill pill-19">2019 v2.1</span>
+      <span style="color:rgba(255,255,255,.4);font-size:12px">vs</span>
+      <span class="pill pill-26">2026 v3.0</span>
+    </div>
+  </div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showPanel('overview')">Overview</button>
+    <button class="nav-tab" onclick="showPanel('objectives')">Learning Objectives</button>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- OVERVIEW PANEL -->
+  <div class="panel active" id="panel-overview">
+    <p class="section-title">Framework at a Glance</p>
+    <p class="section-sub">The 2026 revision represents a fundamental reorientation — from digital skills to AI literacy — more than doubling the number of learning objectives and introducing entirely new topic areas across all three strands.</p>
+
+    <div class="overview-grid">
+      <!-- Total LOs -->
+      <div class="stat-card">
+        <h3>Total Learning Objectives</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px;">
+          <div class="big-stat">
+            <div class="num v19">39</div>
+            <div class="lbl">2019 framework</div>
+          </div>
+          <div class="big-stat">
+            <div class="num v26">87</div>
+            <div class="lbl">2026 framework</div>
+          </div>
+        </div>
+        <div class="bar-compare" style="margin-top:16px">
+          <div class="bar-row">
+            <div class="bar-row-label"><span>Stage 7</span><span style="color:var(--c19);font-weight:600">14</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:53%;background:var(--c19)"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-row-label"><span>Stage 7</span><span style="color:var(--c26);font-weight:600">30</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--c26)"></div></div>
+          </div>
+          <div class="bar-row" style="margin-top:8px">
+            <div class="bar-row-label"><span>Stage 8</span><span style="color:var(--c19);font-weight:600">15</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:50%;background:var(--c19)"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-row-label"><span>Stage 8</span><span style="color:var(--c26);font-weight:600">28</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:93%;background:var(--c26)"></div></div>
+          </div>
+          <div class="bar-row" style="margin-top:8px">
+            <div class="bar-row-label"><span>Stage 9</span><span style="color:var(--c19);font-weight:600">15</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:50%;background:var(--c19)"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-row-label"><span>Stage 9</span><span style="color:var(--c26);font-weight:600">29</span></div>
+            <div class="bar-track"><div class="bar-fill" style="width:97%;background:var(--c26)"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Strand breakdown -->
+      <div class="stat-card">
+        <h3>Objectives by Strand</h3>
+        <div class="stat-row">
+          <span class="stat-label" style="color:var(--tc);font-weight:500">Tools &amp; Content Creation</span>
+          <div class="stat-vals">
+            <span class="stat-val v19">15</span>
+            <span class="stat-arrow">→</span>
+            <span class="stat-val v26">29</span>
+          </div>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label" style="color:var(--sw);font-weight:500">Safety, Wellbeing &amp; Resp.</span>
+          <div class="stat-vals">
+            <span class="stat-val v19">14</span>
+            <span class="stat-arrow">→</span>
+            <span class="stat-val v26">27</span>
+          </div>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label" style="color:var(--dw);font-weight:500">The Digital World</span>
+          <div class="stat-vals">
+            <span class="stat-val v19">15</span>
+            <span class="stat-arrow">→</span>
+            <span class="stat-val v26">31</span>
+          </div>
+        </div>
+        <div class="stat-row" style="margin-top:8px">
+          <span class="stat-label">Document length (pages)</span>
+          <div class="stat-vals">
+            <span class="stat-val v19">18</span>
+            <span class="stat-arrow">→</span>
+            <span class="stat-val v26">67</span>
+          </div>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Glossary terms</span>
+          <div class="stat-vals">
+            <span class="stat-val v19">~16</span>
+            <span class="stat-arrow">→</span>
+            <span class="stat-val v26">~42</span>
+          </div>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Strand name change</span>
+          <div class="stat-vals">
+            <span style="font-size:11px;color:var(--muted)">Safety &amp; Wellbeing → +Responsibility</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Change types -->
+      <div class="stat-card">
+        <h3>What Changed in 2026</h3>
+        <div class="stat-row">
+          <span class="stat-label">✦ Brand-new objectives</span>
+          <span class="stat-val" style="color:var(--new)">55</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">↻ Updated / expanded</span>
+          <span class="stat-val" style="color:var(--updated)">18</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">✓ Retained (same intent)</span>
+          <span class="stat-val" style="color:var(--retained)">14</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">✕ Removed / absorbed</span>
+          <span class="stat-val" style="color:var(--removed)">7</span>
+        </div>
+        <div style="margin-top:14px;padding:10px;background:var(--c26-light);border-radius:var(--radius-sm);font-size:12px;color:var(--c26);border:1px solid var(--c26-mid)">
+          <strong>AI references</strong> appear in <strong>0</strong> of 39 objectives in 2019 vs <strong>52+</strong> of 87 in 2026
+        </div>
+      </div>
+    </div>
+
+    <!-- Key themes -->
+    <p class="section-title" style="margin-top:8px">What's New in 2026</p>
+    <p class="section-sub">Eight major themes introduced or substantially expanded in the 2026 revision</p>
+    <div class="themes-grid">
+      <div class="theme-card">
+        <div class="theme-icon">🤖</div>
+        <h4>AI Literacy (central theme)</h4>
+        <p>AI tools, limitations, and ethics woven across every strand and stage — not just one Stage 9 objective as in 2019.</p>
+      </div>
+      <div class="theme-card">
+        <div class="theme-icon">✍️</div>
+        <h4>Prompt Engineering</h4>
+        <p>Stages 7–9 now explicitly teach prompt creation, prompting frameworks (RTF, CORE), iterative refinement, and source triangulation.</p>
+      </div>
+      <div class="theme-card">
+        <div class="theme-icon">🧠</div>
+        <h4>"Main Creator" Principle</h4>
+        <p>Students must retain creative and intellectual ownership when using AI. Multiple objectives across all stages reinforce this.</p>
+      </div>
+      <div class="theme-card">
+        <div class="theme-icon">💬</div>
+        <h4>Affective &amp; Agentic AI</h4>
+        <p>Entirely new concepts: Affective AI (emotion detection), Agentic AI (autonomous action), AGI and ASI predictions.</p>
+      </div>
+      <div class="theme-card">
+        <div class="theme-icon">🌍</div>
+        <h4>AI &amp; Climate / Energy</h4>
+        <p>Data centres' energy use, AI's carbon footprint, and the environmental dimension of digital divides are now curriculum content.</p>
+      </div>
+      <div class="theme-card">
+        <div class="theme-icon">🔒</div>
+        <h4>Deeper Cybersecurity</h4>
+        <p>Phishing, pharming, social engineering, hacking, fraud — treated as crimes with real human victims, not just abstract risks.</p>
+      </div>
+      <div class="theme-card">
+        <div class="theme-icon">⚖️</div>
+        <h4>AI Regulation &amp; Ethics</h4>
+        <p>Industry regulation, moral rights of creators, legal variation across jurisdictions, and ethical implications of agentic systems.</p>
+      </div>
+      <div class="theme-card">
+        <div class="theme-icon">❤️</div>
+        <h4>Anthropomorphic Risk</h4>
+        <p>Stage 9 now addresses emotional, social and security risks of treating AI chatbots as human relationships.</p>
+      </div>
+    </div>
+
+    <!-- Document structure comparison -->
+    <p class="section-title" style="margin-top:8px">Document Structure</p>
+    <p class="section-sub">The 2026 framework added four major new sections not present in 2019</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;">
+      <div class="stat-card">
+        <h3 style="color:var(--c19)">2019 Contents</h3>
+        <div style="font-size:13px;line-height:1.9;color:var(--muted);margin-top:6px">
+          1. Why choose this framework?<br>
+          2. Curriculum overview<br>
+          3. Digital Literacy and Computing<br>
+          4. Learning objectives by stage<br>
+          5. Glossary<br>
+          6. Changes log
+        </div>
+      </div>
+      <div class="stat-card">
+        <h3 style="color:var(--c26)">2026 Contents (additions highlighted)</h3>
+        <div style="font-size:13px;line-height:1.9;color:var(--muted);margin-top:6px">
+          1. Why choose this framework?<br>
+          2. Curriculum overview<br>
+          3. Digital Literacy and Computing<br>
+          4. Learning objectives by stage<br>
+          <span style="color:var(--new);font-weight:500">5. Planning &amp; implementation guidance ★</span><br>
+          6. Glossary (expanded)<br>
+          7. Changes log<br>
+          <span style="color:var(--new);font-weight:500">App. 1: Learning objective guidance ★</span><br>
+          <span style="color:var(--new);font-weight:500">App. 2: Progression grid ★</span><br>
+          <span style="color:var(--new);font-weight:500">App. 3: Assessment guidance ★</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OBJECTIVES PANEL -->
+  <div class="panel" id="panel-objectives">
+    <p class="section-title">Learning Objectives: Side-by-Side</p>
+    <p class="section-sub">Compare every objective from 2019 and 2026. Use the filters to focus on a strand or stage.</p>
+
+    <div class="changes-legend">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--new-light);border:1px solid #f5c4be"></div> New in 2026</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--updated-light);border:1px solid #e8d898"></div> Updated/expanded</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--retained-light);border:1px solid #b6d9be"></div> Retained (similar intent)</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--removed-light);border:1px solid #ddd"></div> Removed/absorbed</div>
+    </div>
+
+    <div class="filters">
+      <div class="search-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="search-input" placeholder="Search objectives…" oninput="filterObjectives()">
+      </div>
+      <button class="filter-btn all active" onclick="setStrand('all')">All strands</button>
+      <button class="filter-btn tc" onclick="setStrand('TC')">Tools &amp; Content</button>
+      <button class="filter-btn sw" onclick="setStrand('SW')">Safety &amp; Wellbeing</button>
+      <button class="filter-btn dw" onclick="setStrand('DW')">Digital World</button>
+      <div class="stage-selector">
+        <button class="stage-btn active" onclick="setStage('all')">All</button>
+        <button class="stage-btn" onclick="setStage('7')">S7</button>
+        <button class="stage-btn" onclick="setStage('8')">S8</button>
+        <button class="stage-btn" onclick="setStage('9')">S9</button>
+      </div>
+    </div>
+
+    <div id="objectives-container"></div>
+  </div>
+
+</div>
+
+<script>
+const DATA = {
+  "Stage 7": {
+    "2019": {
+      "TC": [
+        "7TC.01 Develop fluency and accuracy when typing in increasing quantity.",
+        "7TC.02 Use devices to create increasingly sophisticated digital artefacts, including the use of sound, video, text and other multimedia.",
+        "7TC.03 Know that files can be stored remotely on other computers, networks or in the cloud.",
+        "7TC.04 Select and use online and offline tools that aid personal organisation and collaboration.",
+        "7TC.05 Use track changes and comments when editing documents.",
+        "7TC.06 Use advanced search techniques to refine search results."
+      ],
+      "SW": [
+        "7SW.01 Know some people purposefully antagonise other online users and understand the risks of engaging with that behaviour.",
+        "7SW.02 Understand that they have personal responsibility for their digital activity, safety and wellbeing.",
+        "7SW.03 Understand that all online activity can be collated and added to a user\u2019s digital footprint, which can have positive and negative consequences."
+      ],
+      "DW": [
+        "7DW.01 Describe the positives and negatives of online live coverage of news and events.",
+        "7DW.02 Understand the benefits and risks of online communities.",
+        "7DW.03 Understand plagiarism, crediting, citation and fair use.",
+        "7DW.04 Understand that the storage capacity of a device is limited.",
+        "7DW.05 Discuss and make predictions about future technologies."
+      ]
+    },
+    "2026": {
+      "TC": [
+        "7TC.01 Develop fluency in selecting and using text creation tools, including typing, voice to text, and text to voice.",
+        "7TC.02 Understand the importance of checking all transcriptions, including those produced using AI, for accuracy.",
+        "7TC.03 Explore the benefits and limitations of using AI-supported media tools in a range of contexts.",
+        "7TC.04 Use tools to create increasingly sophisticated multimedia artefacts.",
+        "7TC.05 Apply AI tools to enhance and refine digital outputs, including multimedia, while retaining the role of main creator.",
+        "7TC.06 Understand the importance of thinking through tasks, and the desired outcomes, before engaging the support of digital and AI tools.",
+        "7TC.07 Create and refine AI prompts with prompt engineering, triangulating outputs with other trusted sources.",
+        "7TC.08 Understand plagiarism, and the need for citation and fair use, including when using AI-generated and web-sourced content.",
+        "7TC.09 Explore general purpose prompting frameworks, including selecting specific frameworks for specific purposes.",
+        "7TC.10 Organise, share and collaborate on artefacts in cloud-based platforms, exploring features such as sharing, commenting and version history."
+      ],
+      "SW": [
+        "7SW.01 Understand that they have personal responsibility for their digital activity, safety, wellbeing and personal data.",
+        "7SW.02 Recognise common online crimes such as phishing, pharming and social engineering.",
+        "7SW.03 Understand that a digital footprint can have negative future consequences.",
+        "7SW.04 Understand that AI use contributes to a digital footprint that may be stored and used to train AI systems.",
+        "7SW.05 Understand that as users, they have personal responsibility for safe, respectful and considered use of AI and its outputs.",
+        "7SW.06 Understand how using AI tools to create education-related outputs can be a barrier to sustained learning.",
+        "7SW.07 Develop and apply strategies to critically assess the authenticity of online content, including AI-generated media.",
+        "7SW.08 Know that some people purposefully antagonise other online users and understand the risks of engaging with this behaviour.",
+        "7SW.09 Know that AI or virtual characters may simulate toxic behaviour, and understand the risks of engaging with these behaviours and characters."
+      ],
+      "DW": [
+        "7DW.01 Make predictions about future technologies, including Artificial General Intelligence and Artificial Super Intelligence, and how these might impact individuals and society.",
+        "7DW.02 Know that AI tools use cloud servers to process data and that data centres use large amounts of energy.",
+        "7DW.03 Explore how AI algorithms can influence human thinking and decision making, including that rules and quantifiable outcomes might gain prominence over qualitative thinking.",
+        "7DW.04 Identify positives and negatives of online news, including misinformation and disinformation, and the role that AI can play in these.",
+        "7DW.05 Evaluate the use by AI tools and digital service providers of other people\u2019s content and metadata.",
+        "7DW.06 Identify risks and efficiencies that could result from AI tools being trained on data that has been previously generated by AI.",
+        "7DW.07 Analyse why some people might choose to limit their use of digital tools, such as social media or AI, including the potential risks and benefits that are associated with these choices.",
+        "7DW.08 Understand that different people use digital and AI technology for different purposes, for example education and work, contrasted with entertainment such as streaming and social interaction.",
+        "7DW.09 Identify benefits and risks of online communities.",
+        "7DW.10 Compare and contrast the capabilities of AI with human intelligence in various contexts such as problem solving, creativity and emotional understanding, recognising strengths and limitations in each of those contexts.",
+        "7DW.11 Explore the capabilities of Affective AI, including its inputs and outputs."
+      ]
+    }
+  },
+  "Stage 8": {
+    "2019": {
+      "TC": [
+        "8TC.01 Develop fluency and accuracy when typing in increasing quantity.",
+        "8TC.02 Use devices to create increasingly sophisticated digital artefacts, including the use of sound, video, text and other multimedia.",
+        "8TC.03 Create templates and master documents and understand the benefit of these.",
+        "8TC.04 Understand when it is appropriate to use informal ways to convey emotion or meaning in an electronic message, for example emojis, gifs and memes.",
+        "8TC.05 Use advanced search techniques to refine search results."
+      ],
+      "SW": [
+        "8SW.01 Know that permissions can be set on files or within a network to protect them from unauthorised access.",
+        "8SW.02 Understand personal identity can be protected by having a username which is not personally identifiable.",
+        "8SW.03 Assess the suitability and security of websites and hyperlinks through reading the URL.",
+        "8SW.04 Know that metadata can provide a detailed description of an online user and that each online action increases the detail of that description.",
+        "8SW.05 Understand that metadata can be sold as a product.",
+        "8SW.06 Understand that they have personal responsibility for their digital activity, safety and wellbeing."
+      ],
+      "DW": [
+        "8DW.01 Make effective judgments about the validity of the source and accuracy of information found online.",
+        "8DW.02 Understand the benefits and limitations of different methods of online communication, including video, audio and text.",
+        "8DW.03 Describe how digital technology is changing the workplace.",
+        "8DW.04 Describe the benefits and risks of the Internet of Things."
+      ]
+    },
+    "2026": {
+      "TC": [
+        "8TC.01 Develop fluency in selecting and using text creation tools, including typing and voice to text, and in checking all AI transcriptions for accuracy.",
+        "8TC.02 Create templates and master documents, including using AI to suggest layouts or structures, and evaluate their benefits.",
+        "8TC.03 Explore the benefits and limitations of using AI-supported media tools in a range of contexts.",
+        "8TC.04 Use AI and other digital tools to create complex digital artefacts, while retaining the role of main creator.",
+        "8TC.05 Explore how AI tools can be used to suggest edits to work and combine this with own critical judgement when reviewing digital artefacts.",
+        "8TC.06 Use advanced search techniques to refine search results, checking AI answers against trusted sources.",
+        "8TC.07 Explore the validity of online and AI-generated information, considering the trustworthiness of sources and the potential for bias.",
+        "8TC.08 Explore using general purpose prompting frameworks iteratively, including deciding which parts of each framework structure to adapt.",
+        "8TC.09 Explore different forms of digital collaboration, including using AI tools as participatory platforms."
+      ],
+      "SW": [
+        "8SW.01 Understand that they have personal responsibility for their digital activity, safety and wellbeing.",
+        "8SW.02 Evaluate the need to protect their personal identity online, including when interacting with AI.",
+        "8SW.03 Explain how search engines provide personalised search results based on metadata, including targeted advertising.",
+        "8SW.04 Understand that metadata builds a detailed user profile, and that AI can analyse this and use it to predict behaviour.",
+        "8SW.05 Understand the importance of audience awareness when composing and sending online messages, such as when choosing appropriate language or deciding when to use informal ways to convey emotion, for example emojis, gifs and memes.",
+        "8SW.06 Understand how using AI tools to create education-related outputs can be a barrier to deep learning.",
+        "8SW.07 Understand that, as users, they have responsibility for independent thinking along with balanced, thoughtful AI use to protect their wellbeing.",
+        "8SW.08 Understand the importance of pause and reflection before sharing opinions online.",
+        "8SW.09 Understand how social media use increases an individual\u2019s risk of exposure to cyberbullying."
+      ],
+      "DW": [
+        "8DW.01 Describe how Industry 4.0, including AI, is transforming and disrupting workplaces, including in industries such as healthcare and education.",
+        "8DW.02 Evaluate the need for regulation of AI industries from a number of perspectives, including climate, inclusion, human contribution and innovation.",
+        "8DW.03 Explore how AI algorithms can influence human thinking and decision making, including how decisions might be improved through AI-supported data analysis.",
+        "8DW.04 Explore how overproduction of AI-generated content can contribute to information overload and \u201cAI Slop\u201d.",
+        "8DW.05 Understand that GenAI outputs include other people\u2019s work and that the original creator usually has legal and moral rights over their material.",
+        "8DW.06 Explore ways in which human and machine interactions with data will inform future AI outputs.",
+        "8DW.07 Explore how rules, laws and expectations related to using online platforms and materials differ across a range of local and international contexts.",
+        "8DW.08 Evaluate the impact that paywalls have on digital divides, including in education, news and in entertainment contexts such as gaming.",
+        "8DW.09 Explore the concept of Agentic AI, and its implications for interactions between humans and machines.",
+        "8DW.10 Describe the benefits and risks of the Internet of Things (IoT), including how AI collects, analyses and acts on data from connected devices."
+      ]
+    }
+  },
+  "Stage 9": {
+    "2019": {
+      "TC": [
+        "9TC.01 Develop fluency and accuracy when typing in increasing quantity.",
+        "9TC.02 Use devices to create increasingly sophisticated digital artefacts, including the use of sound, video, text and other multimedia.",
+        "9TC.03 Create a portfolio of documents for a common purpose.",
+        "9TC.04 Use advanced search techniques to refine search results."
+      ],
+      "SW": [
+        "9SW.01 Understand the risks of downloading software and streaming from unauthorised sources.",
+        "9SW.02 Explain how search engines provide personalised search results based on metadata, including targeted advertising.",
+        "9SW.03 Understand the payment models that exist in the gaming and app industries, and identify the advantages and disadvantages of these models.",
+        "9SW.04 Identify the benefits and risks of online gaming and eSports.",
+        "9SW.05 Understand that they have personal responsibility for their digital activity, safety and wellbeing."
+      ],
+      "DW": [
+        "9DW.01 Make effective judgments about the validity of the source and accuracy of information found online.",
+        "9DW.02 Understand that obtaining unauthorised access to digital media is a form of theft.",
+        "9DW.03 Describe the potential for online communication to bring together and maintain communities in the real world.",
+        "9DW.04 Understand what is meant by the digital divide and how this affects different areas of society both locally and globally.",
+        "9DW.05 Describe the impact of digital technology on the creative disciplines.",
+        "9DW.06 Describe the benefits and risks of AI."
+      ]
+    },
+    "2026": {
+      "TC": [
+        "9TC.01 Develop fluency in selecting and using text creation tools, including typing and voice to text, and in checking AI transcriptions for accuracy.",
+        "9TC.02 Explore how AI and other digital tools can be used to support workload reduction, such as by creating summaries and reminders, and through scheduling.",
+        "9TC.03 Explore the benefits and limitations of using AI-supported media tools in a range of contexts.",
+        "9TC.04 Use AI and other digital tools to create complex digital artefacts, comparing the AI experience and output with digital artefacts that are created without AI support.",
+        "9TC.05 Use AI tools to support starting points, editing, refinement and enhancement when creating digital artefacts, while retaining the role of main creator.",
+        "9TC.06 Understand the importance of being able to demonstrate ownership of learning by explaining the content of learning outputs.",
+        "9TC.07 Use natural language searches within AI, including prompt engineering, source triangulation and critical literacy.",
+        "9TC.08 Make critical evaluations of online and AI-generated information for reliability, validity, bias, the trustworthiness of the original source, and accuracy.",
+        "9TC.09 Compare and contrast the use of printed resources and search engines with the use of AI from a learning perspective.",
+        "9TC.10 Compare prompting processes, and their outputs, when using a prompt framework and when not using a prompt framework."
+      ],
+      "SW": [
+        "9SW.01 Understand that they have personal responsibility for their digital activity, safety and wellbeing.",
+        "9SW.02 Understand that criminal activity, such as hacking, phishing and fraud, is not victimless and that victims often suffer emotional and health consequences, as well as financial consequences.",
+        "9SW.03 Understand the risks and ethical considerations related to downloading software and streaming from unauthorised sources.",
+        "9SW.04 Evaluate the rights that people should have over their personal data, including how it is stored.",
+        "9SW.05 Identify how metadata can lead to homogenised personal recommendations, including for entertainment and social media content.",
+        "9SW.06 Understand that they have responsibility for self-regulation and independent thinking when using AI as a learning tool, avoiding overreliance, lost learning opportunities and impacts on motivation to learn.",
+        "9SW.07 Identify the benefits and risks of online gaming, including AI-driven engagement, spending and overuse.",
+        "9SW.08 Understand the payment models for gaming and apps, and how AI recommendations increase the risks associated with these, including financial and behavioural risks such as addiction.",
+        "9SW.09 Understand that there are risks associated with anthropomorphic relationships with AI tools, including emotional, social and security risks."
+      ],
+      "DW": [
+        "9DW.01 Contrast how digital technology, including AI, is disrupting two or more diverse industries.",
+        "9DW.02 Predict long-term societal and economic implications of AI, including the reimagining of job roles and the related skill requirements.",
+        "9DW.03 Explore how AI algorithms can influence human thinking and decision making, including how choices might be restricted by data bias and echo chamber effects.",
+        "9DW.04 Understand the importance of human choice in deciding when and how to use AI outputs.",
+        "9DW.05 Understand that new digital and AI tools are constantly becoming available, and develop strategies for choosing which of these to explore.",
+        "9DW.06 Explore how the world could change to address digital inequalities.",
+        "9DW.07 Explore how AI can support, but also undermine, collective intelligence, for example by combining similar expertise or by creating an overreliance on AI for thinking and learning.",
+        "9DW.08 Describe how AI influences online communication and community building, including benefits and risks.",
+        "9DW.09 Explore the ethical implications of Agentic AI, and the human responsibilities for autonomous AI systems.",
+        "9DW.10 Identify potential applications, benefits and risks of Affective AI."
+      ]
+    }
+  }
+};
+
+// Classification: map 2026 code -> type, and cross-reference to 2019 equivalent if applicable
+const OBJ_CLASS = {
+  // Stage 7 TC
+  "7TC.01": "updated", "7TC.02": "new", "7TC.03": "new", "7TC.04": "retained",
+  "7TC.05": "new", "7TC.06": "new", "7TC.07": "new", "7TC.08": "updated",
+  "7TC.09": "new", "7TC.10": "updated",
+  // Stage 7 SW
+  "7SW.01": "updated", "7SW.02": "new", "7SW.03": "updated", "7SW.04": "new",
+  "7SW.05": "new", "7SW.06": "new", "7SW.07": "new", "7SW.08": "retained", "7SW.09": "new",
+  // Stage 7 DW
+  "7DW.01": "updated", "7DW.02": "new", "7DW.03": "new", "7DW.04": "updated",
+  "7DW.05": "new", "7DW.06": "new", "7DW.07": "new", "7DW.08": "new",
+  "7DW.09": "retained", "7DW.10": "new", "7DW.11": "new",
+  // Stage 8 TC
+  "8TC.01": "updated", "8TC.02": "updated", "8TC.03": "new", "8TC.04": "updated",
+  "8TC.05": "new", "8TC.06": "updated", "8TC.07": "new", "8TC.08": "new", "8TC.09": "new",
+  // Stage 8 SW
+  "8SW.01": "retained", "8SW.02": "updated", "8SW.03": "updated", "8SW.04": "updated",
+  "8SW.05": "updated", "8SW.06": "new", "8SW.07": "new", "8SW.08": "new", "8SW.09": "new",
+  // Stage 8 DW
+  "8DW.01": "updated", "8DW.02": "new", "8DW.03": "new", "8DW.04": "new",
+  "8DW.05": "new", "8DW.06": "new", "8DW.07": "new", "8DW.08": "new",
+  "8DW.09": "new", "8DW.10": "updated",
+  // Stage 9 TC
+  "9TC.01": "updated", "9TC.02": "new", "9TC.03": "new", "9TC.04": "updated",
+  "9TC.05": "new", "9TC.06": "new", "9TC.07": "new", "9TC.08": "updated",
+  "9TC.09": "new", "9TC.10": "new",
+  // Stage 9 SW
+  "9SW.01": "retained", "9SW.02": "new", "9SW.03": "updated", "9SW.04": "new",
+  "9SW.05": "new", "9SW.06": "new", "9SW.07": "updated", "9SW.08": "updated", "9SW.09": "new",
+  // Stage 9 DW
+  "9DW.01": "updated", "9DW.02": "new", "9DW.03": "new", "9DW.04": "new",
+  "9DW.05": "new", "9DW.06": "updated", "9DW.07": "new", "9DW.08": "new",
+  "9DW.09": "new", "9DW.10": "new"
+};
+
+// 2019 objectives that were removed/absorbed
+const REMOVED_2019 = {
+  "7TC.03": "Know that files can be stored remotely on other computers, networks or in the cloud.",
+  "7TC.05": "Use track changes and comments when editing documents.",
+  "7DW.04": "Understand that the storage capacity of a device is limited.",
+  "8SW.01": "Know that permissions can be set on files or within a network to protect them from unauthorised access.",
+  "8SW.03": "Assess the suitability and security of websites and hyperlinks through reading the URL.",
+  "9TC.03": "Create a portfolio of documents for a common purpose.",
+  "9DW.05": "Describe the impact of digital technology on the creative disciplines."
+};
+
+const STRAND_NAMES = { TC: "Tools & Content Creation", SW: "Safety, Wellbeing & Responsibility", DW: "The Digital World" };
+
+let activeStrand = 'all';
+let activeStage = 'all';
+
+function showPanel(id) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+}
+
+function setStrand(s) {
+  activeStrand = s;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  renderObjectives();
+}
+
+function setStage(s) {
+  activeStage = s;
+  document.querySelectorAll('.stage-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  renderObjectives();
+}
+
+function filterObjectives() { renderObjectives(); }
+
+function getCode(obj) { return obj.split(' ')[0]; }
+function getText(obj) { return obj.substring(obj.indexOf(' ') + 1); }
+
+function getTagHTML(code) {
+  const t = OBJ_CLASS[code];
+  if (t === 'new') return '<span class="tag tag-new">New</span>';
+  if (t === 'updated') return '<span class="tag tag-updated">Updated</span>';
+  if (t === 'retained') return '<span class="tag tag-retained">Retained</span>';
+  return '';
+}
+
+function renderObjectives() {
+  const search = document.getElementById('search-input').value.toLowerCase();
+  const container = document.getElementById('objectives-container');
+  let html = '';
+
+  const stages = activeStage === 'all' ? ['Stage 7', 'Stage 8', 'Stage 9'] : ['Stage ' + activeStage];
+  const strands = activeStrand === 'all' ? ['TC', 'SW', 'DW'] : [activeStrand];
+
+  for (const stage of stages) {
+    const stageNum = stage.split(' ')[1];
+    let stageHtml = '';
+
+    for (const strand of strands) {
+      const objs19 = DATA[stage]['2019'][strand] || [];
+      const objs26 = DATA[stage]['2026'][strand] || [];
+
+      // Determine which removed ones to show for this strand
+      const removedForStrand = Object.entries(REMOVED_2019).filter(([code]) => {
+        const codeStrand = code.substring(1, 3);
+        const codeStage = code.charAt(0);
+        return codeStrand === strand && codeStage === stageNum;
+      });
+
+      // Filter by search
+      const matchSearch = (text) => !search || text.toLowerCase().includes(search);
+
+      const filtered19 = objs19.filter(o => matchSearch(o));
+      const filtered26 = objs26.filter(o => matchSearch(o));
+      const filteredRemoved = removedForStrand.filter(([, text]) => matchSearch(text));
+
+      if (!filtered19.length && !filtered26.length && !filteredRemoved.length) continue;
+
+      const maxRows = Math.max(filtered19.length + filteredRemoved.length, filtered26.length);
+
+      stageHtml += `<div class="strand-block" data-strand="${strand}" data-stage="${stageNum}">
+        <span class="strand-label ${strand.toLowerCase()}">${STRAND_NAMES[strand]}</span>
+        <div class="obj-grid">
+          <div class="obj-col-header v19">2019 — ${objs19.length} objectives</div>
+          <div class="obj-col-header v26">2026 — ${objs26.length} objectives</div>
+          <div class="obj-col">`;
+
+      for (const o of filtered19) {
+        const code = getCode(o);
+        const isRemoved = REMOVED_2019[code];
+        const cls = isRemoved ? 'removed-obj' : '';
+        stageHtml += `<div class="obj-item ${cls}">
+          <span class="obj-code">${code}</span>
+          <span class="obj-text">${getText(o)}${isRemoved ? '<span class="tag tag-removed">Removed</span>' : ''}</span>
+        </div>`;
+      }
+      if (!filtered19.length) stageHtml += `<div class="empty-col">No matching objectives</div>`;
+      stageHtml += `</div><div class="obj-col right">`;
+
+      for (const o of filtered26) {
+        const code = getCode(o);
+        const cls = OBJ_CLASS[code] === 'new' ? 'new-obj' : OBJ_CLASS[code] === 'updated' ? 'updated-obj' : 'retained-obj';
+        stageHtml += `<div class="obj-item ${cls}">
+          <span class="obj-code">${code}</span>
+          <span class="obj-text">${getText(o)}</span>
+          ${getTagHTML(code)}
+        </div>`;
+      }
+      if (!filtered26.length) stageHtml += `<div class="empty-col">No matching objectives</div>`;
+      stageHtml += `</div></div></div>`;
+    }
+
+    if (stageHtml) {
+      html += `<div class="stage-section" data-stage="${stageNum}">
+        <div class="stage-header">
+          <span class="stage-badge">Stage ${stageNum}</span>
+        </div>
+        ${stageHtml}
+      </div>`;
+    }
+  }
+
+  container.innerHTML = html || '<p style="color:var(--muted);padding:20px 0">No objectives match your filters.</p>';
+}
+
+renderObjectives();
+</script>
+</body>
+</html>

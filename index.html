@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CIE Computing & Digital Literacy — Department Resources</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=Epilogue:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #111827;
+    --ink2: #374151;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --bg: #f8f7f4;
+    --white: #ffffff;
+    --dl: #0d9373;
+    --dl-light: #dcfce7;
+    --cp: #2563eb;
+    --cp-light: #dbeafe;
+    --gold: #b45309;
+    --gold-light: #fef3c7;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Epilogue', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--ink);
+    padding: 64px 60px 56px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 600px 400px at 80% 50%, rgba(13,147,115,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 400px 300px at 20% 80%, rgba(37,99,235,0.10) 0%, transparent 60%);
+  }
+  .hero-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 40px;
+    padding: 6px 16px;
+    margin-bottom: 28px;
+  }
+  .hero-badge-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #4ade80;
+    box-shadow: 0 0 6px #4ade80;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  .hero-badge span {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: rgba(255,255,255,0.55);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 5vw, 48px);
+    color: #ffffff;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: #6ee7b7;
+  }
+  .hero-desc {
+    font-size: 16px;
+    color: rgba(255,255,255,0.5);
+    font-weight: 300;
+    max-width: 560px;
+    line-height: 1.7;
+    margin-bottom: 36px;
+  }
+
+  /* ── META ROW ── */
+  .meta-row {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .meta-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+  }
+  .meta-value {
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.75);
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 3px;
+    background: linear-gradient(90deg, var(--dl) 0%, var(--cp) 100%);
+  }
+
+  /* ── MAIN CONTENT ── */
+  .main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 52px 60px 80px;
+  }
+
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── RESOURCE CARDS ── */
+  .cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 56px;
+  }
+
+  @media (max-width: 680px) {
+    .cards { grid-template-columns: 1fr; }
+    .hero, .main { padding-left: 24px; padding-right: 24px; }
+  }
+
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.10);
+  }
+  .card-top {
+    padding: 28px 28px 20px;
+    flex: 1;
+  }
+  .card-icon {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    margin-bottom: 18px;
+  }
+  .card-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    line-height: 1.25;
+    margin-bottom: 10px;
+    color: var(--ink);
+  }
+  .card-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.65;
+    font-weight: 300;
+  }
+  .card-footer {
+    padding: 16px 28px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .card-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+  }
+  .card-cta {
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    letter-spacing: 0.02em;
+  }
+  .card-cta svg {
+    transition: transform 0.2s;
+  }
+  .card:hover .card-cta svg {
+    transform: translateX(3px);
+  }
+
+  /* Card colour themes */
+  .card-dl .card-icon { background: var(--dl-light); }
+  .card-dl .card-tag { color: var(--dl); }
+  .card-dl .card-cta { color: var(--dl); }
+  .card-dl:hover { border-color: var(--dl); }
+
+  .card-cp .card-icon { background: var(--cp-light); }
+  .card-cp .card-tag { color: var(--cp); }
+  .card-cp .card-cta { color: var(--cp); }
+  .card-cp:hover { border-color: var(--cp); }
+
+  /* ── ABOUT SECTION ── */
+  .about-box {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px 36px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  @media (max-width: 600px) {
+    .about-box { grid-template-columns: 1fr; }
+  }
+  .about-col-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .about-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    margin-bottom: 8px;
+    color: var(--ink);
+  }
+  .about-text {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+  .attendee-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 4px;
+  }
+  .attendee {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--ink2);
+  }
+  .attendee-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--dl);
+    flex-shrink: 0;
+  }
+  .attendee-hod .attendee-dot { background: var(--gold); }
+
+  /* ── FOOTER ── */
+  .footer {
+    border-top: 1px solid var(--border);
+    padding: 24px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .footer-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+  }
+
+  /* ── ANIMATIONS ── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.5s ease forwards;
+  }
+  .fade-up:nth-child(1) { animation-delay: 0.05s; }
+  .fade-up:nth-child(2) { animation-delay: 0.15s; }
+  .fade-up:nth-child(3) { animation-delay: 0.25s; }
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">
+      <div class="hero-badge-dot"></div>
+      <span>Peer Learning Initiative · 31 March 2026</span>
+    </div>
+    <h1 class="hero-title">Aligning Our Practice:<br><em>Computing & Digital Literacy</em></h1>
+    <p class="hero-desc">Department curriculum resources used in the collaborative peer learning session on CIE Lower Secondary Computing and Digital Literacy — Stages 7 to 9.</p>
+    <div class="meta-row">
+      <div class="meta-item">
+        <span class="meta-label">Conducted By</span>
+        <span class="meta-value">Prashant Kulshrestha</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Time</span>
+        <span class="meta-value">2:45 PM – 3:45 PM</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Resources</span>
+        <span class="meta-value">2 Interactive Guides</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Objectives</span>
+        <span class="meta-value">217 Total</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <div class="section-label">Session Resources</div>
+
+  <div class="cards">
+
+    <!-- Card 1 -->
+    <a class="card card-dl fade-up" href="Digital_Literacy_vs_Computing.html">
+      <div class="card-top">
+        <div class="card-icon">⚖️</div>
+        <div class="card-tag">Curriculum Comparison</div>
+        <div class="card-title">Digital Literacy vs. Computing</div>
+        <p class="card-desc">A side-by-side visual comparison of both curricula across Stages 7–9, including cross-curricular overlaps, teaching approaches, and all 217 learning objectives.</p>
+      </div>
+      <div class="card-footer">
+        <span class="card-meta">DL 0082 v3.0 · CO 0860 v2.0</span>
+        <span class="card-cta">
+          Open
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      </div>
+    </a>
+
+    <!-- Card 2 -->
+    <a class="card card-cp fade-up" href="Cambridge_Digital_Literacy_0082_-_Curriculum_Comparison_.html">
+      <div class="card-top">
+        <div class="card-icon">🔄</div>
+        <div class="card-tag">Version Comparison</div>
+        <div class="card-title">Digital Literacy 0082 — Old vs. New</div>
+        <p class="card-desc">A detailed comparison of the Cambridge Digital Literacy curriculum v1.9 vs. v3.0 (Feb 2026), highlighting new, updated, retained, and removed objectives across all strands.</p>
+      </div>
+      <div class="card-footer">
+        <span class="card-meta">v1.9 (2019) → v3.0 (Feb 2026)</span>
+        <span class="card-cta">
+          Open
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- ABOUT -->
+  <div class="section-label">Session Details</div>
+  <div class="about-box fade-up">
+    <div>
+      <div class="about-col-label">About the Session</div>
+      <div class="about-title">Peer Learning Initiative</div>
+      <p class="about-text">A collaborative department session exploring the CIE Lower Secondary Computing and Digital Literacy curricula, the Cambridge Teaching Framework, and lesson planning best practices using the Cambridge Professional Development template.</p>
+    </div>
+    <div>
+      <div class="about-col-label">Attendees</div>
+      <div class="attendee-list">
+        <div class="attendee attendee-hod">
+          <div class="attendee-dot"></div>
+          Mr. Nishant V Gupta <span style="font-size:11px; color:#b45309; margin-left:4px;">(HOD)</span>
+        </div>
+        <div class="attendee"><div class="attendee-dot"></div>Prashant Kulshrestha <span style="font-size:11px; color:#6b7280; margin-left:4px;">(Facilitator)</span></div>
+        <div class="attendee"><div class="attendee-dot"></div>Ms. Ritu Bhatnagar</div>
+        <div class="attendee"><div class="attendee-dot"></div>Ms. Himmat Panwar</div>
+        <div class="attendee"><div class="attendee-dot"></div>Mr. Vikas</div>
+        <div class="attendee"><div class="attendee-dot"></div>Mr. Cidhu</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <span class="footer-text">Cambridge Lower Secondary · Digital Literacy 0082 · Computing 0860 · Stages 7–9</span>
+  <span class="footer-text">Prepared by Prashant Kulshrestha · March 2026</span>
+</div>
+
+</body>
+</html>
